@@ -12,17 +12,17 @@ set -euo pipefail
 ILLUMIO_RPM_KEY="/usr/local/src/illumio-pce-ui-24.5.0.UI1-2981.x86_64.signingkey"
 ILLUMIO_PCE_RPM="/usr/local/src/illumio-pce-24.5.0-2379.el9.x86_64.rpm"
 ILLUMIO_UI_RPM="/usr/local/src/illumio-pce-ui-24.5.0.UI1-2981.x86_64.rpm"
-SERVER_CERT_PATH="/usr/local/src/illumio.ztap.fdlabs.dev.crt"
-SERVER_KEY_PATH="/usr/local/src/illumio.ztap.fdlabs.dev.key"
+SERVER_CERT_PATH="/usr/local/src/illumio.dev.crt"
+SERVER_KEY_PATH="/usr/local/src/illumio.dev.key"
 CA_CERT="/usr/local/src/ca.crt"
 RUN_ENV_FILE="/etc/illumio-pce/runtime_env.yml"
 
 # Configuration variables
-PCE_FQDN="illumio.ztap.fdlabs.dev"
+PCE_FQDN="illumio.dev"
 LOGIN_BANNER="No unauthorized access!"
-EMAIL_ADDR="hammer@flywheeldata.com"
+EMAIL_ADDR="admin@email.com"
 SERVICE_DISCOVERY_FQDN="$PCE_FQDN"
-LOAD_BALANCER_IP="192.168.50.101"
+LOAD_BALANCER_IP="x.x.x.x"
 
 # Randomly generate the service discovery encryption key
 SERVICE_DISCOVERY_KEY="$(openssl rand -base64 32)"
