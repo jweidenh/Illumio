@@ -93,3 +93,13 @@ If `shellcheck` is available, run it too:
 ```bash
 shellcheck install_illumio.sh
 ```
+
+## Client install readiness
+
+Before a real client install, follow `docs/client-install-checklist.md`. For checksum manifests, see `docs/checksum-manifest-example.md`.
+
+Repository maintainers should run:
+
+```bash
+scripts/check_repo.sh
+```
