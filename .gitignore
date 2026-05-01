@@ -1,0 +1,19 @@
+# Local/client-specific install material
+*.rpm
+*.signingkey
+*.crt
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*password*
+*secret*
+*.env
+.env
+
+# Generated logs and scratch files
+*.log
+*.tmp
+.DS_Store
