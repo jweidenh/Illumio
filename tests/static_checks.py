@@ -21,6 +21,7 @@ checks = {
     "placeholder guard exists": "validate_not_placeholder" in text,
     "expect reads password from file path instead of process environment": "<<'EOF'" in text and "$env(ADMIN_PASSWORD_PATH)" in text and "$env(ADMIN_PASSWORD)" not in text,
     "inherited password exports are cleared before reads": "unset ADMIN_PASSWORD ADMIN_PASSWORD2" in text,
+    "optional checksum manifest is supported": "CHECKSUM_MANIFEST" in text and "sha256sum --check --strict" in text,
 }
 
 failures = [name for name, ok in checks.items() if not ok]

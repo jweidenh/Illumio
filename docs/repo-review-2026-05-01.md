@@ -28,7 +28,8 @@
   - YAML quoting for generated runtime values.
   - runtime certificate references updated to installed `/var/lib/illumio-pce/cert/...` paths.
   - dry-run wrappers for host-mutating commands and waits.
-- Added `README.md` with usage, required variables, safety notes, and local checks.
+  - optional `CHECKSUM_MANIFEST` support using `sha256sum --check --strict` for staged package/signing/certificate files.
+- Added `README.md` with usage, required variables, safety notes, checksum manifest guidance, and local checks.
 - Added `.gitignore` to reduce risk of committing client RPMs, certs, keys, password files, logs, and env files.
 - Added `tests/static_checks.py` for repository-level safety regressions.
 
@@ -46,6 +47,6 @@
 
 - This script still performs major host changes when run with `--yes`; use only on the intended Illumio target host after a dry run.
 - It assumes an EL9/RHEL-like host with `dnf`, `rpm`, systemd, Illumio RPMs, and Illumio command names matching the staged package version.
-- It does not verify Illumio package checksums because no trusted checksum manifest is present in the repo.
+- Package checksum verification now exists when a trusted manifest is provided, but client-specific manifests still need to be generated and protected outside the repo.
 - `ADMIN_PASSWORD_FILE` is local operator material and must never be committed.
 - No client-specific values or secrets were added.

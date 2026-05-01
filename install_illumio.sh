@@ -40,6 +40,7 @@ Common variables:
   FULL_NAME                Optional; prompted if empty
   ORG_NAME                 Optional; prompted if empty
   ADMIN_PASSWORD_FILE      Optional path to a root-readable file containing the initial password
+  CHECKSUM_MANIFEST        Optional sha256sum-compatible manifest for staged package/signing files
 EOF
 }
 
@@ -128,6 +129,20 @@ validate_not_placeholder() {
   esac
 }
 
+verify_checksum_manifest() {
+  local manifest=$1
+  local manifest_dir manifest_file
+
+  [[ -n "$manifest" ]] || return 0
+  require_command sha256sum
+  require_file "$manifest"
+
+  manifest_dir="$(cd "$(dirname "$manifest")" && pwd)"
+  manifest_file="$(basename "$manifest")"
+  log "Verifying staged files with checksum manifest: ${manifest}"
+  (cd "$manifest_dir" && sha256sum --check --strict "$manifest_file")
+}
+
 trap 'fatal "An unexpected error occurred near line ${LINENO}"' ERR
 
 # File paths. Defaults match historical staging names, but can be overridden.
@@ -138,6 +153,7 @@ SERVER_CERT_PATH="${SERVER_CERT_PATH:-/usr/local/src/illumio.dev.crt}"
 SERVER_KEY_PATH="${SERVER_KEY_PATH:-/usr/local/src/illumio.dev.key}"
 CA_CERT="${CA_CERT:-/usr/local/src/ca.crt}"
 RUN_ENV_FILE="${RUN_ENV_FILE:-/etc/illumio-pce/runtime_env.yml}"
+CHECKSUM_MANIFEST="${CHECKSUM_MANIFEST:-}"
 
 # Site configuration. Intentionally no safe defaults for customer-specific data.
 PCE_FQDN="${PCE_FQDN:-}"
@@ -180,6 +196,8 @@ if [[ -n "$ADMIN_PASSWORD_FILE" ]]; then
   require_file "$ADMIN_PASSWORD_FILE"
   [[ -r "$ADMIN_PASSWORD_FILE" ]] || fatal "ADMIN_PASSWORD_FILE is not readable by root: ${ADMIN_PASSWORD_FILE}"
 fi
+
+verify_checksum_manifest "$CHECKSUM_MANIFEST"
 
 if ((DRY_RUN)); then
   log "Dry run selected; no host changes will be made."
