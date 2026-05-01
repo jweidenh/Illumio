@@ -23,6 +23,7 @@ checks = {
     "expect reads password from file path instead of process environment": "<<'EOF'" in text and "$env(ADMIN_PASSWORD_PATH)" in text and "$env(ADMIN_PASSWORD)" not in text,
     "inherited password exports are cleared before reads": "unset ADMIN_PASSWORD ADMIN_PASSWORD2" in text,
     "optional checksum manifest is supported": "CHECKSUM_MANIFEST" in text and "sha256sum --check --strict" in text,
+    "manifest validation helper exists": (ROOT / "scripts" / "validate_manifest.sh").exists(),
     "help documents dry-run and yes controls": "--dry-run" in text and "--yes" in text and "--help" in text,
     "mutation refusal without explicit confirmation remains": "Refusing to mutate this host without --yes" in text,
     "placeholder validation covers unsafe defaults": "validate_not_placeholder PCE_FQDN" in text and "validate_not_placeholder LOAD_BALANCER_IP" in text and "validate_not_placeholder EMAIL_ADDR" in text,

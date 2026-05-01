@@ -103,3 +103,7 @@ Repository maintainers should run:
 ```bash
 scripts/check_repo.sh
 ```
+
+## Maintenance and releases
+
+See `docs/maintenance.md` for the safe-change workflow, release tags, and rollback/recovery guidance. See `docs/checksum-maintenance.md` for maintaining checksum manifests over time.

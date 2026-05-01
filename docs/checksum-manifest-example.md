@@ -39,3 +39,11 @@ sudo CHECKSUM_MANIFEST=/usr/local/src/illumio-checksums.sha256 \
 ```
 
 Paths in the manifest may be absolute, or relative to the manifest file's directory.
+
+## Validate before install
+
+After generating a real manifest outside the repo, validate it with:
+
+```bash
+scripts/validate_manifest.sh /usr/local/src/illumio-checksums.sha256
+```

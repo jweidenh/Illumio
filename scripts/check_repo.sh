@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 bash -n install_illumio.sh
+bash -n scripts/validate_manifest.sh
 python3 tests/static_checks.py
 ./install_illumio.sh --help >/dev/null
 git diff --check
